@@ -12,17 +12,37 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      
-      <NavigationContainer>
-      <Tab.Navigator>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+            if (route.name === 'Image') {
+              iconName = 'image-outline';
+            } else if (route.name === 'Options') {
+              iconName = 'settings-outline';
+            } else if (route.name === 'Quiz') {
+              iconName = 'clipboard-outline';
+            }
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          tabBarStyle: {
+            paddingBottom: 5, 
+            height: 70,
+            borderTopWidth: 0, 
+          },
+          tabBarItemStyle: {
+            marginHorizontal: 10,
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
         <Tab.Screen name="Image" component={ImageScreen} />
         <Tab.Screen name="Options" component={OptionsScreen} />
         <Tab.Screen name="Quiz" component={QuizScreen} />
       </Tab.Navigator>
-      </NavigationContainer>
-      
-    </View>
+    </NavigationContainer>
   );
 }
 
